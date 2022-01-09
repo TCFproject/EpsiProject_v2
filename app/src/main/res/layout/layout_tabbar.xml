@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/textViewTab1"
+            style="@style/TextViewTab"
+            android:background="@color/purple_700"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Carte"/>
+        <TextView
+            style="@style/TextViewTab"
+            android:id="@+id/textViewTab2"
+            android:background="@color/purple_500"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Offres"/>
+        <TextView
+            style="@style/TextViewTab"
+            android:id="@+id/textViewTab3"
+            android:background="@color/purple_200"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Magasin"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
