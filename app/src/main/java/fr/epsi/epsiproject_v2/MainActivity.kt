@@ -38,6 +38,7 @@ class MainActivity : BaseActivity() {
         transaction.addToBackStack("fF") // name can be null
         transaction.commit()
     }
+
     companion object{
         fun startMainActivity(con:Context){
             val intent = Intent(con, MainActivity::class.java)
