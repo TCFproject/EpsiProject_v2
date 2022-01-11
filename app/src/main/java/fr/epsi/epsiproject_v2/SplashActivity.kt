@@ -10,7 +10,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
-            MainActivity.startMainActivity(application)
+            PasDeCompteActivity.startThisActivity(application)
         },2000)
     }
 }

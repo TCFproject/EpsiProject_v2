@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import fr.epsi.epsiproject_v2.fragment.BarreFragment
 import fr.epsi.epsiproject_v2.fragment.MapsFragment
 import fr.epsi.epsiproject_v2.fragment.OffresFragment
 
@@ -13,10 +14,14 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val carte:TextView = findViewById(R.id.textViewTab1)
+        val bar:TextView = findViewById(R.id.textViewTab1)
         val offre:TextView = findViewById(R.id.textViewTab2)
         val magasin:TextView = findViewById(R.id.textViewTab3)
 
+        showCodeBar()
+        bar.setOnClickListener(View.OnClickListener {
+            showCodeBar()
+        })
         offre.setOnClickListener(View.OnClickListener {
             showOffre()
         })
@@ -35,12 +40,19 @@ class MainActivity : BaseActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.contentLayout, MapsFragment::class.java, null)
         transaction.setReorderingAllowed(true)
-        transaction.addToBackStack("fF") // name can be null
+        transaction.addToBackStack("mF") // name can be null
+        transaction.commit()
+    }
+    private fun showCodeBar(){
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.contentLayout, BarreFragment::class.java, null)
+        transaction.setReorderingAllowed(true)
+        transaction.addToBackStack("cF") // name can be null
         transaction.commit()
     }
 
     companion object{
-        fun startMainActivity(con:Context){
+        fun startThisActivity(con:Context){
             val intent = Intent(con, MainActivity::class.java)
             con.startActivity(intent)
         }
