@@ -9,4 +9,5 @@ open class BaseActivity : AppCompatActivity() {
         val txt=sharedPreferences.getString(key,"Not found")
         return txt.toString()
     }
+
 }

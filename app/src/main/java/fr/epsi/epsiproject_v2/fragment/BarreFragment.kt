@@ -1,6 +1,7 @@
 package fr.epsi.epsiproject_v2.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.core.app.NotificationCompat.getColor
 import com.google.zxing.BarcodeFormat
@@ -45,12 +47,21 @@ class BarreFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_barre, container, false)
-        val bareImg = view.findViewById<ImageView>(R.id.imageBarre)
-        val textValue = view.findViewById<TextView>(R.id.textBitmap)
-        displayBitmap("aaaaa",bareImg,textValue)
+
         return view
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bareImg = view.findViewById<ImageView>(R.id.imageBarre)
+        val textValue = view.findViewById<TextView>(R.id.textBitmap)
+        val textNomPrenom = view.findViewById<TextView>(R.id.textNomPrenom)
+
+        val displayNomPrenom =readSharedPreferences("firstName",view.context)+" "+readSharedPreferences("lastName",view.context)
+        textNomPrenom.setText(displayNomPrenom)
+        displayBitmap(displayNomPrenom+"aaaaaeeee",bareImg,textValue)
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -76,16 +87,15 @@ class BarreFragment : Fragment() {
         val widthPixels = resources.getDimensionPixelSize(R.dimen.width_barcode)
         val heightPixels = resources.getDimensionPixelSize(R.dimen.height_barcode)
 
-        image_barcode.setImageBitmap(
-            createBarcodeBitmap(
-                barcodeValue = value,
-                barcodeColor = R.color.black,
-                backgroundColor = android.R.color.white,
-                widthPixels = widthPixels,
-                heightPixels = heightPixels
-            )
+        val bitmapData = createBarcodeBitmap(
+            barcodeValue = value,
+            barcodeColor = R.color.black,
+            backgroundColor = android.R.color.white,
+            widthPixels = widthPixels,
+            heightPixels = heightPixels
         )
-        text_barcode_number.text = value
+        image_barcode.setImageBitmap(bitmapData)
+        text_barcode_number.text = bitmapData.generationId.toString()
     }
 
     private fun createBarcodeBitmap(barcodeValue: String, @ColorInt barcodeColor: Int,
@@ -121,5 +131,10 @@ class BarreFragment : Fragment() {
             bitMatrix.height
         )
         return bitmap
+    }
+    private fun readSharedPreferences(key : String, con: Context) : String{
+        val sharedPreferences = con.getSharedPreferences("epsi", Context.MODE_PRIVATE)
+        val txt=sharedPreferences.getString(key,"Not found")
+        return txt.toString()
     }
 }

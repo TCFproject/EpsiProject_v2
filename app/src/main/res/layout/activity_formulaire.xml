@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nom" />
+        android:hint="Nom" />
 
     <EditText
         android:id="@+id/prenom"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Prenom" />
+        android:hint="Prenom" />
 
     <EditText
         android:id="@+id/email"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Emal" />
+        android:hint="Emal" />
 
     <EditText
         android:id="@+id/adresse"
@@ -37,13 +37,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Adresse" />
+        android:hint="Adresse" />
 
     <EditText
         android:id="@+id/postal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Code postal"
         android:inputType="textPostalAddress" />
 
     <EditText
@@ -52,13 +53,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Ville" />
+        android:hint="Ville" />
 
     <EditText
         android:id="@+id/fidelite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Carte de fidélité"
         android:inputType="number" />
 
     <LinearLayout
