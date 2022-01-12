@@ -31,14 +31,16 @@ class FormulaireActivity : BaseActivity() {
                     codePostal.text.isNotBlank() && ville.text.isNotBlank() &&
                     codeFidelite.text.isNotBlank()){
 
-                writeSharedPreferences("firstName",nom.text.toString())
-                writeSharedPreferences("lastName",prenom.text.toString())
-                writeSharedPreferences("email",email.text.toString())
-                writeSharedPreferences("address",adresse.text.toString())
-                writeSharedPreferences("zipcode",codePostal.text.toString())
-                writeSharedPreferences("city",ville.text.toString())
-                writeSharedPreferences("cardRef",codeFidelite.text.toString())
+                        val jSonParse = JSONObject()
+                jSonParse.put("firstName",nom.text.toString())
+                jSonParse.put("lastName",prenom.text.toString())
+                jSonParse.put("email",email.text.toString())
+                jSonParse.put("address",adresse.text.toString())
+                jSonParse.put("zipcode",codePostal.text.toString())
+                jSonParse.put("city",ville.text.toString())
+                jSonParse.put("cardRef",codeFidelite.text.toString())
 
+                writeSharedPreferences("info",jSonParse.toString())
                 MainActivity.startThisActivity(application)
             }
         })

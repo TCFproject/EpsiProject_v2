@@ -10,7 +10,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
-            if (readSharedPreferences("firstName").equals("Not found")){
+            if (readSharedPreferences("info").equals("Not found")){
                 PasDeCompteActivity.startThisActivity(application)
             }else{
                 MainActivity.startThisActivity(application)

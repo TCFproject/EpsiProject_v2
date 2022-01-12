@@ -17,6 +17,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
 import com.google.zxing.qrcode.QRCodeWriter
 import fr.epsi.epsiproject_v2.R
+import org.json.JSONObject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,9 +59,9 @@ class BarreFragment : Fragment() {
         val textValue = view.findViewById<TextView>(R.id.textBitmap)
         val textNomPrenom = view.findViewById<TextView>(R.id.textNomPrenom)
 
-        val displayNomPrenom =readSharedPreferences("firstName",view.context)+" "+readSharedPreferences("lastName",view.context)
-        textNomPrenom.setText(displayNomPrenom)
-        displayBitmap(displayNomPrenom+"aaaaaeeee",bareImg,textValue)
+        val displayNomPrenom =readSharedPreferences("info",view.context)
+        /* textNomPrenom.setText(displayNomPrenom)
+        displayBitmap(displayNomPrenom,bareImg,textValue)*/
     }
     companion object {
         /**
@@ -95,7 +96,7 @@ class BarreFragment : Fragment() {
             heightPixels = heightPixels
         )
         image_barcode.setImageBitmap(bitmapData)
-        text_barcode_number.text = bitmapData.generationId.toString()
+        text_barcode_number.text = bitmapData.byteCount.toString()
     }
 
     private fun createBarcodeBitmap(barcodeValue: String, @ColorInt barcodeColor: Int,
