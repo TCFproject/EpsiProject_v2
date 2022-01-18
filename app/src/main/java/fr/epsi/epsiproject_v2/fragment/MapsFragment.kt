@@ -11,11 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import com.google.android.gms.maps.*
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import fr.epsi.epsiproject_v2.R
@@ -45,7 +42,6 @@ class MapsFragment : Fragment() {
         }
     }
     private val callback = OnMapReadyCallback { googleMap ->
-        this.googleMap = googleMap
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -55,9 +51,10 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+         val sydney = LatLng(-34.0, 151.0)
+         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
 
         val okHttpClient = OkHttpClient.Builder().build()
         val request = Request.Builder()
@@ -76,16 +73,18 @@ class MapsFragment : Fragment() {
                         val long = json.optDouble("longitude",0.0)
                         val lat = json.optDouble("latitude",0.0)
                         val title = json.optString("name", "Echec")
-                        val place = LatLng(lat,long)
-                        googleMap.addMarker(MarkerOptions().position(place))
+                        val place = LatLng(long,lat)
+                        googleMap.addMarker(MarkerOptions().position(place).title(title))
                     }
                 }
             }
             override fun onFailure(call: Call, e: IOException) {
                 TODO("Not yet implemented")
             }
-        })
-    }
+        })/**/
+        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
+        this.googleMap = googleMap
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,4 +99,5 @@ class MapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
 }

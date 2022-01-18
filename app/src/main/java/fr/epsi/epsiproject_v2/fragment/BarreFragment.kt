@@ -68,8 +68,9 @@ class BarreFragment : Fragment() {
 
         val textBitmap = jsonTable.getString("firstName")+" "+jsonTable.getString("lastName")+
                 " "+ jsonTable.getString("email")+" "+jsonTable.getString("address")+
-                " "+jsonTable.getString("zipcode")+" "+jsonTable.getString("city")+
-                " "+ jsonTable.getString("cardRef")
+                " "+jsonTable.getString("zipcode")+" "+jsonTable.getString("city")
+
+        //Toast.makeText(view.context,textBitmap, Toast.LENGTH_LONG).show()
         displayBitmap(textBitmap,bareImg,textValue)
     }
     companion object {

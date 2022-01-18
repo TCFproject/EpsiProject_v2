@@ -57,4 +57,10 @@ class MainActivity : BaseActivity() {
             con.startActivity(intent)
         }
     }
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount>1)
+            super.onBackPressed()
+        else
+            finish()
+    }
 }
