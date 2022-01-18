@@ -17,7 +17,9 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.oned.Code128Writer
 import com.google.zxing.qrcode.QRCodeWriter
 import fr.epsi.epsiproject_v2.R
+import org.json.JSONArray
 import org.json.JSONObject
+import java.lang.StringBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,9 +61,16 @@ class BarreFragment : Fragment() {
         val textValue = view.findViewById<TextView>(R.id.textBitmap)
         val textNomPrenom = view.findViewById<TextView>(R.id.textNomPrenom)
 
-        val displayNomPrenom =readSharedPreferences("info",view.context)
-        /* textNomPrenom.setText(displayNomPrenom)
-        displayBitmap(displayNomPrenom,bareImg,textValue)*/
+        val sharedPref = readSharedPreferences("info",view.context)
+        val jsonTable = JSONObject(sharedPref)
+
+        textNomPrenom.setText(jsonTable.getString("firstName")+" "+jsonTable.getString("lastName"))
+
+        val textBitmap = jsonTable.getString("firstName")+" "+jsonTable.getString("lastName")+
+                " "+ jsonTable.getString("email")+" "+jsonTable.getString("address")+
+                " "+jsonTable.getString("zipcode")+" "+jsonTable.getString("city")+
+                " "+ jsonTable.getString("cardRef")
+        displayBitmap(textBitmap,bareImg,textValue)
     }
     companion object {
         /**

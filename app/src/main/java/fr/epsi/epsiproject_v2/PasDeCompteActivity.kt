@@ -16,6 +16,9 @@ class PasDeCompteActivity : BaseActivity() {
         val btnScan:ImageButton = findViewById(R.id.qrScan)
         val btnForm:Button = findViewById(R.id.formulaire)
 
+        btnScan.setOnClickListener(View.OnClickListener {
+            ScanActivity.startThisActivity(application)
+        })
         btnForm.setOnClickListener(View.OnClickListener {
             FormulaireActivity.startThisActivity(application)
         })

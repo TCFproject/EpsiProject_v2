@@ -12,8 +12,10 @@ class SplashActivity : BaseActivity() {
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             if (readSharedPreferences("info").equals("Not found")){
                 PasDeCompteActivity.startThisActivity(application)
+                finish()
             }else{
                 MainActivity.startThisActivity(application)
+                finish()
             }
         },2000)
     }
