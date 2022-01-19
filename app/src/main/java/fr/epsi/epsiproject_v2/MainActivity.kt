@@ -14,6 +14,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setTextHeader("Logo")
+        showButtonLogo()
+
         val bar:TextView = findViewById(R.id.textViewTab1)
         val offre:TextView = findViewById(R.id.textViewTab2)
         val magasin:TextView = findViewById(R.id.textViewTab3)

@@ -10,11 +10,15 @@ import android.widget.EditText
 import android.widget.Toast
 import org.json.JSONObject
 
-class FormulaireActivity : BaseActivity() {
+open class FormulaireActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formulaire)
+        setAndParseData()
+    }
+
+    protected fun setAndParseData(){
         val nom:EditText = findViewById(R.id.nom)
         val prenom:EditText = findViewById(R.id.prenom)
         val email:EditText = findViewById(R.id.email)
@@ -23,35 +27,38 @@ class FormulaireActivity : BaseActivity() {
         val ville:EditText = findViewById(R.id.ville)
         val codeFidelite:EditText = findViewById(R.id.fidelite)
 
-        nom.setText(listText().get("nom"))
-        prenom.setText(listText().get("prenom"))
-        email.setText(listText().get("mail"))
-        adresse.setText(listText().get("addresse"))
-        codePostal.setText(listText().get("code postal"))
-        ville.setText(listText().get("ville"))
-        codeFidelite.setText(listText().get("abonnement"))
+        if (intent.hasExtra("jsonConn")){
+            nom.setText(listText().get("nom"))
+            prenom.setText(listText().get("prenom"))
+            email.setText(listText().get("mail"))
+            adresse.setText(listText().get("addresse"))
+            codePostal.setText(listText().get("code postal"))
+            ville.setText(listText().get("ville"))
+            codeFidelite.setText(listText().get("abonnement"))
+        }
+        
         val versMain:Button = findViewById(R.id.creer)
         versMain.setOnClickListener(View.OnClickListener {
             if (nom.text.isNotBlank() && prenom.text.isNotBlank() &&
-                    email.text.isNotBlank() && adresse.text.isNotBlank() &&
-                    codePostal.text.isNotBlank() && ville.text.isNotBlank() &&
-                    codeFidelite.text.isNotBlank()){
-                        val jSonParse = JSONObject()
-                        jSonParse.put("firstName",nom.text.toString())
-                        jSonParse.put("lastName",prenom.text.toString())
-                        jSonParse.put("email",email.text.toString())
-                        jSonParse.put("address",adresse.text.toString())
-                        jSonParse.put("zipcode",codePostal.text.toString())
-                        jSonParse.put("city",ville.text.toString())
-                        jSonParse.put("cardRef",codeFidelite.text.toString())
+                email.text.isNotBlank() && adresse.text.isNotBlank() &&
+                codePostal.text.isNotBlank() && ville.text.isNotBlank() &&
+                codeFidelite.text.isNotBlank()){
+                val jSonParse = JSONObject()
+                jSonParse.put("firstName",nom.text.toString())
+                jSonParse.put("lastName",prenom.text.toString())
+                jSonParse.put("email",email.text.toString())
+                jSonParse.put("address",adresse.text.toString())
+                jSonParse.put("zipcode",codePostal.text.toString())
+                jSonParse.put("city",ville.text.toString())
+                jSonParse.put("cardRef",codeFidelite.text.toString())
 
-                        writeSharedPreferences("info",jSonParse.toString())
-                        MainActivity.startThisActivity(application)
+                writeSharedPreferences("info",jSonParse.toString())
+                MainActivity.startThisActivity(application)
             }
         })
     }
 
-    private fun listText(): HashMap<String,String>{
+    protected fun listText(): HashMap<String,String>{
         val getIntent = intent.getStringExtra("jsonConn")
         val jsonIntent = JSONObject(getIntent)
         val info = HashMap<String,String>()

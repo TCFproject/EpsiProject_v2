@@ -6,16 +6,15 @@
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
--->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <permission
         android:name="com.example.app.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
-    <!-- Permission to receive Google Maps -->
+        android:protectionLevel="signature" /> <!-- Permission to receive Google Maps -->
     <uses-permission android:name="com.example.app.permission.MAPS_RECEIVE" />
 
     <application
@@ -26,10 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ScanActivity"
-            android:stateNotNeeded="true"
-            android:screenOrientation="fullSensor"
+            android:name=".CompteActivity"
             android:exported="false" />
+        <activity
+            android:name=".ScanActivity"
+            android:exported="false"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true" />
         <activity
             android:name=".FormulaireActivity"
             android:exported="false" />
