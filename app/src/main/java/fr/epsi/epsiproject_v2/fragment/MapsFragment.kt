@@ -51,10 +51,6 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-         val sydney = LatLng(-34.0, 151.0)
-         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
         val tableLoc = HashMap<String, LatLng>()
 
         val okHttpClient = OkHttpClient.Builder().build()
@@ -74,19 +70,20 @@ class MapsFragment : Fragment() {
                         val long = json.optDouble("longitude",0.0)
                         val lat = json.optDouble("latitude",0.0)
                         val title = json.optString("name", "Echec")
-                        val place = LatLng(long,lat)
+                        val place = LatLng(lat,long)
                         tableLoc.put(title, place)
                     }
+                    activity?.runOnUiThread(Runnable {
+                        for ((title, place) in tableLoc){
+                            googleMap.addMarker(MarkerOptions().position(place).title(title))
+                        }
+                    })
                 }
             }
             override fun onFailure(call: Call, e: IOException) {
                 TODO("Not yet implemented")
             }
         })/**/
-
-        for ((title, place) in tableLoc){
-            googleMap.addMarker(MarkerOptions().position(place).title(title))
-        }
 
         locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         this.googleMap = googleMap

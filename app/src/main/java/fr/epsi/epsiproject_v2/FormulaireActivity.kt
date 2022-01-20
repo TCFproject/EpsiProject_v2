@@ -58,7 +58,7 @@ open class FormulaireActivity : BaseActivity() {
         })
     }
 
-    protected fun listText(): HashMap<String,String>{
+    private fun listText(): HashMap<String,String>{
         val getIntent = intent.getStringExtra("jsonConn")
         val jsonIntent = JSONObject(getIntent)
         val info = HashMap<String,String>()

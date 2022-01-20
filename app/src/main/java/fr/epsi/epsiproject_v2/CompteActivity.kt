@@ -20,10 +20,6 @@ class CompteActivity : FormulaireActivity() {
     }
 
     companion object{
-        fun startThisActivity(con: Context){
-            val i = Intent(con,CompteActivity::class.java)
-            con.startActivity(i)
-        }
         fun startThisActivity(con: Context, jSon:String){
             val i = Intent(con,CompteActivity::class.java)
             i.putExtra("jsonConn",jSon)
