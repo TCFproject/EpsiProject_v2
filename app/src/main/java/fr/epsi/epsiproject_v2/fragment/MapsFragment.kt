@@ -14,8 +14,11 @@ import androidx.annotation.RequiresApi
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import fr.epsi.epsiproject_v2.DetailMagasinActivity
 import fr.epsi.epsiproject_v2.R
+import fr.epsi.epsiproject_v2.obj.Marche
 import fr.epsi.epsiproject_v2.obj.Produit
 import okhttp3.*
 import org.json.JSONObject
@@ -51,7 +54,7 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val tableLoc = HashMap<String, LatLng>()
+        val tableLoc = ArrayList<Marche>()
 
         val okHttpClient = OkHttpClient.Builder().build()
         val request = Request.Builder()
@@ -70,21 +73,37 @@ class MapsFragment : Fragment() {
                         val long = json.optDouble("longitude",0.0)
                         val lat = json.optDouble("latitude",0.0)
                         val title = json.optString("name", "Echec")
-                        val place = LatLng(lat,long)
-                        tableLoc.put(title, place)
+                        val img = json.optString("pictureStore","Echec")
+                        val addr = json.optString("address","Echec")
+                        val zip = json.optString("zipcode","Echec")
+                        val desc = json.optString("description","Echec")
+                        val ville = json.optString("city", "Echec")
+                        tableLoc.add(Marche(title, desc,img,addr,zip,ville,long,lat))
                     }
                     activity?.runOnUiThread(Runnable {
-                        for ((title, place) in tableLoc){
-                            googleMap.addMarker(MarkerOptions().position(place).title(title))
+                        for (marche in tableLoc){
+                            googleMap.addMarker(MarkerOptions().position(LatLng(marche.getLat(),marche.getLong()))
+                                .title(marche.getNom()))
+
                         }
+
+                        googleMap.setOnMarkerClickListener(object :GoogleMap.OnMarkerClickListener{
+                            override fun onMarkerClick(p0: Marker): Boolean {
+                                val posi:Int = Integer.parseInt(p0.id.split("m")[1])
+                                DetailMagasinActivity.startThisActivity(activity!!,tableLoc.get(posi).getNom()
+                                ,tableLoc.get(posi).getPic(),tableLoc.get(posi).getAddr()
+                                ,tableLoc.get(posi).getZip(),tableLoc.get(posi).getVille()
+                                ,tableLoc.get(posi).getDesc())
+                                return false
+                            }
+                        })
                     })
                 }
             }
             override fun onFailure(call: Call, e: IOException) {
                 TODO("Not yet implemented")
             }
-        })/**/
-
+        })
         locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         this.googleMap = googleMap
         }

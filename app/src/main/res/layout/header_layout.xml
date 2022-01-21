@@ -14,10 +14,11 @@
         <ImageView
             android:id="@+id/backArrow"
             android:layout_width="wrap_content"
-            android:layout_height="63dp"
-            android:visibility="gone"
+            android:layout_height="61dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/img"/>
+            android:visibility="visible"
+            app:srcCompat="@drawable/icon_back" />
+
         <TextView
             android:id="@+id/header_titre"
             android:layout_width="534dp"
@@ -31,10 +32,9 @@
 
         <ImageView
             android:id="@+id/logoImg"
-            android:layout_width="wrap_content"
+            android:layout_width="54dp"
             android:layout_height="63dp"
             android:visibility="gone"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/img" />
+            app:srcCompat="@drawable/img_char" />
     </LinearLayout>
 </LinearLayout>
